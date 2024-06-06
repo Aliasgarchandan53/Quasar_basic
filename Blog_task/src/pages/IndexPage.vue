@@ -1,32 +1,39 @@
 <template>
-  <q-page class="q-pa-md">
-    <q-btn @click="getBlogsFromStore" class="q-mb-md">Get Data (more blogs)</q-btn>
-  <div class="q-pa-md example-row-stacked-to-horizontal">
-    <div v-for="(blog, index) in blogs.blogs" :key="index" class="row">
-      <div class="col-12 col-md">
-        <blog-card :blog="blog"></blog-card>
-      </div>
-    </div>
+  <div id="container">
+    <a href="/#/blogs" id="link">Click here to move to blogs page</a>
   </div>
-
-  </q-page>
 </template>
 
 <script setup lang="ts">
-import BlogCard from '../components/BlogCard.vue';
-import { useBlogStore } from 'src/stores/blogStore';
-import { onMounted, toRaw } from 'vue';
-
-const blogs = useBlogStore();
-
-function getBlogsFromStore() {
-  blogs.setUserFlag()
-  blogs.getBlogs();
-  console.log(toRaw(blogs.blogs));
-  return toRaw(blogs.blogs);
-}
-onMounted(()=>{
-  blogs.getBlogs();
-  return toRaw(blogs.blogs);
-})
+// Your script setup code (if any)
 </script>
+
+<style scoped lang="scss">
+#link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 100px;
+  background-color: #333; // Dark background
+  color: #fff; // White text
+  text-decoration: none; // Remove underline
+  border-radius: 4px; // Optional: rounded corners
+  transition: background-color 0.3s ease; // Smooth transition for background color
+  padding: 20px;
+
+  &:hover {
+    background-color: #555; // Darker background on hover
+  }
+
+  &:active {
+    background-color: #111; // Even darker background on active
+  }
+}
+#container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+</style>
