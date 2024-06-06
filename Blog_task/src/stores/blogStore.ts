@@ -13,9 +13,11 @@ export type Blog = {
 export const useBlogStore = defineStore('blogStore', () => {
   const blogs = ref<Blog[]>([]);
   const index = ref<number>(0);
+  const userFlag = ref<boolean>(false)
 
     function getBlogs(){
-        index.value += 3;
+        if(!blogs.value.length || userFlag.value){
+          index.value += 3;
         api.get('https://jsonplaceholder.typicode.com/photos')
         .then(response=>{
             blogs.value = response.data.slice(0, index.value);
@@ -23,6 +25,10 @@ export const useBlogStore = defineStore('blogStore', () => {
         . catch (error=>{
             console.error('Error fetching blogs:', error);
         }) 
+        }
     }
-  return { blogs, getBlogs };
+    function setUserFlag(){
+      userFlag.value=true
+    }
+  return { blogs, getBlogs ,setUserFlag};
 });
